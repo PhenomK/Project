@@ -5,7 +5,7 @@ import random
 
 class Create_User(unittest.TestCase):
     def test_create(self):
-        url = "http://172.16.29.37:8080/v2/user/login"
+        url = "http://172.16.52.138/v2/user/login"
         querystring = {"user_slug":"admin","password":"123456"}
         response1 = requests.request("post",url,params = querystring)
         response2 = requests.request("post",url,params = querystring).json()
@@ -22,7 +22,7 @@ class Create_User(unittest.TestCase):
         var5 = str(re.findall(r'JSESSIONID=(.+?) ', line0))
         line6 = str(re.sub(r"\W", "", var5))              # JSESSIONID
         i = str(random.randint(0, 1000))
-        url2 = "http://172.16.29.37:8080/v2/notice/create"
+        url2 = "http://172.16.52.138/v2/notice/create"
         querystring2 = {"account_id": line3,
                         "uid": line2,
                         "S": line4,
