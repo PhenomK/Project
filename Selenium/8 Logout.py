@@ -15,3 +15,4 @@ time.sleep(1)
 #退出
 elem4 = driver.find_element_by_link_text("退出")
 elem4.click()
+quit()

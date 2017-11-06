@@ -1,13 +1,16 @@
-import requests
-import unittest
-import re
+from locust import HttpLocust, TaskSet, task
 import random
+import re
+import requests
 
-class Create_Folder(unittest.TestCase):
-    def test_rename(self):
-        url = "http://172.16.52.138"
+# 定义用户行为
+class UserBehavior(TaskSet):
+
+    @task
+    def create(self):
+        url = "http://172.16.52.58"
         url1 = url + "/v2/user/login"
-        querystring = {"user_slug":"chrome","password":"123456"}
+        querystring = {"user_slug": "chrome", "password": "123456"}
         response1 = requests.request("post", url1, params=querystring)
         response2 = requests.request("post", url1, params=querystring).json()
         print(response2)
@@ -23,11 +26,13 @@ class Create_Folder(unittest.TestCase):
         line5 = str(re.sub(r"\W", "", var4))  # SESS-ID
         var5 = str(re.findall(r'JSESSIONID=(.+?) ', line0))
         line6 = str(re.sub(r"\W", "", var5))  # JSESSIONID
-        i = str(random.randint(0, 1000))
-        url2 = url +"/v2/fileops/create_folder/databox/lenovo" + i
-        querystring2 = {"path_type": "self", "is_update": "false", "account_id": line3, "uid": line2, "S": line4,"X-LENOVO-SESS-ID": line5, "JSESSIONID": line6}
-        response = requests.request("POST", url2, params=querystring2).json()
-        # print(response)
-        self.assertRegexpMatches(response['result'],'success')
-if __name__ == '__main__':
-    unittest.main()
+        i = str(random.randint(0, 10000000000))
+        url = "/v2/fileops/create_folder/databox/lenovo" + i
+        self.client.post(url ,{"path_type": "self", "is_update": "false","account_id":line3, "uid": line2, "S": line4,"X-LENOVO-SESS-ID": line5, "JSESSIONID": line6})
+
+
+
+class WebsiteUser(HttpLocust):
+    task_set = UserBehavior
+    min_wait = 3000
+    max_wait = 6000
