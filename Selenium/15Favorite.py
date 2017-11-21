@@ -15,6 +15,7 @@ class TaskClass(unittest.TestCase):
         self.driver.quit()
 
     def test1(self):
+        i = str(random.randint(0,10000))
         self.driver.get(self.url)
         elem1 = self.driver.find_element_by_id("user_slug")
         elem1.send_keys("chrome")                                       #用户名
@@ -24,13 +25,13 @@ class TaskClass(unittest.TestCase):
         button.click()
         time.sleep(2)
 
-        #跳转个人文件
-        elem3 = self.driver.find_element_by_link_text("个人文件")
+#跳转个人文件
+        elem3 = self.driver.find_element_by_link_text("个人文件")     #跳转个人文件
         elem3.click()
         time.sleep(1)
         self.driver.refresh()
 
-        #新建文件夹
+        #新建收藏文件夹
         time.sleep(1)
         above = self.driver.find_element_by_id("addfile")                    #新建
         ActionChains(self.driver).move_to_element(above).perform()
@@ -40,25 +41,20 @@ class TaskClass(unittest.TestCase):
         time.sleep(1)
         ActionChains(self.driver).move_by_offset(xoffset=400,yoffset=400).perform()
         elem5 = self.driver.find_element_by_class_name("box")
-        elem5.send_keys("selenium重命名文件夹")
+        elem5.send_keys("selenium收藏测试文件夹"+i)
         elem6 = self.driver.find_element_by_css_selector(".sure")
         elem6.click()
         time.sleep(2)
 
-        #重命名
-        elem7 = self.driver.find_element_by_xpath("//a[@class='display-name' and @title='selenium重命名文件夹']/../../../..").find_element_by_class_name("item-checkbox")
+        #勾选文件夹
+        elem7 = self.driver.find_element_by_xpath("//a[@class='display-name' and @title='selenium收藏测试文件夹" + i +"']/../../../..").find_element_by_class_name("item-checkbox") #勾选文件
         elem7.click()
-        time.sleep(1)
-        elem8 = self.driver.find_element_by_class_name("fileMore")
+
+        #收藏
+        elem8 = self.driver.find_element_by_class_name("fileMore")                                       #点击更多
         ActionChains(self.driver).move_to_element(elem8).perform()
         time.sleep(1)
-        elem9 = self.driver.find_element_by_class_name("rename")
-        elem9.click()
-        ActionChains(self.driver).move_by_offset(xoffset=400,yoffset=400).perform()
-        time.sleep(1)
-        elem10 = self.driver.find_element_by_class_name("rename-input")
-        elem10.send_keys("selenium二次重命名文件夹")
-        elem11 = self.driver.find_element_by_css_selector(".sure")
-        elem11.click()
+        elem12 = self.driver.find_element_by_class_name("favorite")                                       #点击收藏
+        elem12.click()
 if __name__ == '__main__':
 	unittest.main()

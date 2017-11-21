@@ -1,5 +1,4 @@
 import requests
-import requests
 import unittest
 import re
 import random
@@ -25,6 +24,11 @@ class Create_Files(unittest.TestCase):
         var5 = str(re.findall(r'JSESSIONID=(.+?) ', line0))
         line6 = str(re.sub(r"\W", "", var5))  # JSESSIONID
         i = str(random.randint(0, 1000))
+        url2 = url +"/v2/fileops/auth_upload/databox/lenovo"+ i +".docx"
+        querystring2 = {"path_type":"self","file_type":"docx","bytes":"0","is_file_create":"true",
+                        "account_id": line3, "uid": line2, "S": line4,"X-LENOVO-SESS-ID": line5, "JSESSIONID": line6}
+        response3 = requests.request("GET", url2, params=querystring2).json()
+        print(response3)
         url3 = url +"/v2/file_create"
         querystring3 = {"path_type":"self","file_type":"docx","dc_url":"http://172.16.52.138:10081",
                         "path":"lenovo"+ i +".docx","template_name":"新建 Microsoft Word 文档",
@@ -36,7 +40,4 @@ class Create_Files(unittest.TestCase):
         self.assertRegexpMatches(response4['result'],'success')
 if __name__ == '__main__':
     unittest.main()
-
-
-
 
