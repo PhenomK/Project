@@ -25,17 +25,9 @@ class TsetTool(QWidget):
         address = QLabel('测试地址：',self)
         address.resize(address.sizeHint())
         address.move(200, 45)
-        #address.clicked.connect(self.showDialog1)
         addressEdit = QLineEdit('http://',self)
         addressEdit.resize(addressEdit.sizeHint())
         addressEdit.move(270, 40)
-
-
-        #def showDialog1(self):
-        #text, ok = QInputDialog.getText(self, '测试地址', '输入你的测试地址:')
-        #if ok:
-             #self.titleEdit.setText(str(text))
-
 
 
         title1 = QLabel('用户名：', self)

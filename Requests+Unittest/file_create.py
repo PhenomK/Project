@@ -5,13 +5,13 @@ import re
 import random
 
 class Create_Files(unittest.TestCase):
-    def test_rename(self):
+    def test_create(self):
         url = "http://172.16.52.138"
         url1 = url + "/v2/user/login"
         querystring = {"user_slug":"chrome","password":"123456"}
         response1 = requests.request("post", url1, params=querystring)
         response2 = requests.request("post", url1, params=querystring).json()
-        print(response2)
+        #print(response2)
         line0 = str(response1.cookies)
         line1 = str(response2)  # body
         var1 = str(re.findall(r"'uid': (.+?),", line1))
@@ -31,7 +31,7 @@ class Create_Files(unittest.TestCase):
             "account_id": line3, "uid": line2, "S": line4,"X-LENOVO-SESS-ID": line5, "JSESSIONID": line6}
         headers = {'cookie': "S="+ line4 +"; X-LENOVO-SESS-ID="+ line5 +"; JSESSIONID"+ line6 +""}
         response4 = requests.request("POST", url3, params=querystring3, headers=headers).json()
-        print(response4)
+        #print(response4)
 
         self.assertRegexpMatches(response4['result'],'success')
 if __name__ == '__main__':

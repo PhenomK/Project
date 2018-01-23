@@ -4,8 +4,8 @@ import time
 
 desired_caps = {}
 desired_caps['platformName'] = 'Android'
-desired_caps['platformVersion'] = '7.0'
-desired_caps['deviceName'] = 'Android Emulator - Nexus_5X_API_23:5554'
+desired_caps['platformVersion'] = '5.1.1'
+desired_caps['deviceName'] = 'Nexus 4'#'Android Emulator - Nexus_5X_API_23:5554'
 desired_caps['appPackage'] = 'com.android.chrome'
 desired_caps['appActivity'] = 'com.google.android.apps.chrome.Main'
 

@@ -1,13 +1,13 @@
 import requests
-import unittest
 import re
+import unittest
 import random
 
-class Create_Folder(unittest.TestCase):
-    def test_rename(self):
+class File_Create(unittest.TestCase):
+    def test_create(self):
         url = "http://172.16.52.138"
         url1 = url + "/v2/user/login"
-        querystring = {"user_slug":"chrome","password":"123456"}
+        querystring = {"user_slug": "chrome", "password": "123456"}
         response1 = requests.request("post", url1, params=querystring)
         response2 = requests.request("post", url1, params=querystring).json()
         #print(response2)
@@ -23,11 +23,15 @@ class Create_Folder(unittest.TestCase):
         line5 = str(re.sub(r"\W", "", var4))  # SESS-ID
         var5 = str(re.findall(r'JSESSIONID=(.+?) ', line0))
         line6 = str(re.sub(r"\W", "", var5))  # JSESSIONID
-        i = str(random.randint(0, 9999))
-        url2 = url +"/v2/fileops/create_folder/databox/lenovo" + i
-        querystring2 = {"path_type": "self", "is_update": "false", "account_id": line3, "uid": line2, "S": line4,"X-LENOVO-SESS-ID": line5, "JSESSIONID": line6}
+        i = str(random.randint(0, 999999))
+        url2 = url + "/v2/file_create"
+        querystring2 = {"path_type": "self", "file_type": "docx", "dc_url": "http://172.16.52.138:10081",
+                        "path": "lenovo" + i + ".docx", "template_name": "新建 Microsoft Word 文档",
+                        "account_id": line3, "uid": line2, "S": line4, "X-LENOVO-SESS-ID": line5, "JSESSIONID": line6}
+        #headers = {'cookie': "S=" + line4 + "; X-LENOVO-SESS-ID=" + line5 + "; JSESSIONID" + line6 + ""}
         response = requests.request("POST", url2, params=querystring2).json()
-        # print(response)
-        self.assertRegexpMatches(response['result'],'success')
+        #self.client.post(url2, params=querystring3, headers=headers)
+        print(response)
+        self.assertRegexpMatches(response['result'], 'success')
 if __name__ == '__main__':
     unittest.main()
